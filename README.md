@@ -6,16 +6,33 @@ thanks : [Dockerで開発環境を作る](http://qiita.com/miyasakura_/items/0e7
 Requirement
 ---
 
+- [Docker for Mac](https://docs.docker.com/docker-for-mac/)
+
+if you don't have Docker for Mac, you need bellow
+
 - [virtual box](http://www.oracle.com/technetwork/server-storage/virtualbox/downloads/index.html)
     - ~> 5.0.16
 - [docker tool box](https://www.docker.com/products/docker-toolbox)
     - ~> 1.10.3
 
+I suggest you to install Docker for Mac.  
+Because you are released from `docker-machine` command by Docker for Mac.
 
 Usage
 ---
 
 ### start
+
+#### if you have Docker for Mac
+
+```
+$ docker-compose up
+```
+
+and access `http://localhost:3000`
+
+
+#### if you don't have Docker for Mac
 
 ```
 $ docker-machine start dev
@@ -26,6 +43,14 @@ and access `http://192.168.99.100:3000`
 
 
 ### stop
+
+#### if you have Docker for Mac
+
+```
+$ docker-compose stop
+```
+
+#### if you don't have Docker for Mac
 
 ```
 $ docker-compose stop
@@ -51,6 +76,8 @@ Install
 
 ### 1. create vm
 
+if you have Docker for Mac, you don't need this step.
+
 ```
 $ docker-machine create --virtualbox-disk-size "30000" -d virtualbox dev
 $ eval "$(docker-machine env dev)"
@@ -66,7 +93,7 @@ $ git clone [your rail app repo] app
 ### 3. create docker base image
 
 ```
-$ cd build-image
+$ cd base-image
 $ docker build -t my-dockerhub-repository/centos6-ruby2.3.0:latest .
 $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -88,6 +115,11 @@ $ docker-compose run web bundle exec rake db:create db:migrate RAILS_ENV=test
 ```
 $ docker-compose up
 ```
+#### if you have Docker for Mac
+
+and access `http://localhost:3000`
+
+#### if you don't have Docker for Mac
 
 and access `http://192.168.99.100:3000`
 
